@@ -26,4 +26,6 @@ when 'add'
   task.add(args.first, **options)
 when 'update'
   task.update(args.first, task: args[1], **options)
+when 'delete'
+  task.delete(args.first)
 end

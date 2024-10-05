@@ -28,13 +28,26 @@ class Task
   end
 
   def update(id, task: nil, description: nil)
-    task_hash = tasks.find { |t| t[:id] == id.to_i }
-    raise "Invalid task ID: #{id}" unless task_hash
+    task_hash = find_task(id)
+    raise "Invalid task ID: #{id}" unless task_hash.nil?
 
-    task_hash.merge!({ task:, description: })
+    task_hash.merge!({ task:, description: }.compact)
     update_file
 
     puts "Task updated successfully (ID: #{id})"
+  end
+
+  def delete(id)
+    task_hash = find_task(id)
+    raise "Invalid task ID: #{id}" unless task_hash
+
+    # kind of soft deleting the task object
+    # so as to not disrupt the auto increment of ID
+    # similar to how relational DBs work
+    task_hash.replace({})
+    update_file
+
+    puts "Task deleted successfully (ID: #{id})"
   end
 
   private
@@ -59,5 +72,9 @@ class Task
     File.open(JSON_FILE, 'w') do |f|
       f.write("#{JSON.generate(tasks)}\n")
     end
+  end
+
+  def find_task(id)
+    tasks.find { |t| t[:id] == id.to_i }
   end
 end
