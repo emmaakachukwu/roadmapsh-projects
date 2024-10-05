@@ -4,7 +4,7 @@
 require 'optparse'
 require_relative '../lib/task'
 
-options = { status: :todo }
+options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: task_cli <command> [<args>]'
 
@@ -12,16 +12,18 @@ OptionParser.new do |opts|
     options[:description] = description
   end
 
-  opts.on('-s STATUS', '--status STATUS', %i[todo in-progress done], "Specify task status (todo, in-progress, done) (default: #{options[:status]})") do |status|
+  opts.on('-s STATUS', '--status STATUS', %i[todo in-progress done], "Specify task status (todo, in-progress, done) (default: todo)") do |status|
     options[:status] = status
   end
 end.parse!
 
 command = ARGV.first
-todo = ARGV.last
+args = ARGV[1..-1]
 task = Task.new
 
 case command
 when 'add'
-  task.add(todo, **options)
+  task.add(args.first, **options)
+when 'update'
+  task.update(args.first, task: args[1], **options)
 end

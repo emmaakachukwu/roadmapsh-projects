@@ -27,6 +27,16 @@ class Task
     puts "Task added successfully (ID: #{id})"
   end
 
+  def update(id, task: nil, description: nil)
+    task_hash = tasks.find { |t| t[:id] == id.to_i }
+    raise "Invalid task ID: #{id}" unless task_hash
+
+    task_hash.merge!({ task:, description: })
+    update_file
+
+    puts "Task updated successfully (ID: #{id})"
+  end
+
   private
 
   attr_accessor :tasks
@@ -38,7 +48,7 @@ class Task
   end
 
   def fetch_tasks
-    @tasks ||= JSON.parse(File.read(JSON_FILE))
+    @tasks ||= JSON.parse(File.read(JSON_FILE), symbolize_names: true)
   end
 
   def generate_id
