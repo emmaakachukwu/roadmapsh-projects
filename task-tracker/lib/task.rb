@@ -51,8 +51,8 @@ class Task
     puts "Task deleted successfully (ID: #{id})"
   end
 
-  def list
-    tasks.select { |t| t.any? }
+  def list(status: nil)
+    tasks.select { |t| !status.nil? ? t[:status] == status : t.any? }
   end
 
   private

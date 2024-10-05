@@ -34,5 +34,5 @@ when 'mark-in-progress'
 when 'mark-done'
   task.update(args.first, status: 'done')
 when 'list'
-  Table.display(Task::HEADERS, task.list)
+  Table.display(Task::HEADERS, task.list(status: args.first))
 end
