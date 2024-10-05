@@ -10,13 +10,13 @@ class Task
     fetch_tasks
   end
 
-  def add(task, description: nil)
+  def add(task, description: nil, status: :todo)
     time = Time.now
     object = {
       id: generate_id,
       task:,
       description:,
-      status: 'todo',
+      status:,
       createdAt: time,
       updatedAt: time
     }
