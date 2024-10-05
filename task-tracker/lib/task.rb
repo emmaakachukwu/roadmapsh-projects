@@ -22,15 +22,7 @@ class Task
   def add(task, description: nil, status: :todo)
     time = Time.now
     id = generate_id
-    object = {
-      id:,
-      task:,
-      description:,
-      status:,
-      createdAt: time,
-      updatedAt: time
-    }
-    tasks << object
+    tasks << Hash[HEADERS.keys.zip([id, task, description, status, time, time])]
     update_file
 
     puts "Task added successfully (ID: #{id})"
