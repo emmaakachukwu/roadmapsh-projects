@@ -27,14 +27,14 @@ class Task
     puts "Task added successfully (ID: #{id})"
   end
 
-  def update(id, task: nil, description: nil)
+  def update(id, task: nil, description: nil, status: nil)
     task_hash = find_task(id)
-    raise "Invalid task ID: #{id}" unless task_hash.nil?
+    raise "Invalid task ID: #{id}" if task_hash.nil?
 
-    task_hash.merge!({ task:, description: }.compact)
+    task_hash.merge!({ task:, description:, status:, updatedAt: Time.now }.compact)
     update_file
 
-    puts "Task updated successfully (ID: #{id})"
+    puts status.nil? ? "Task updated successfully (ID: #{id})" : "Task marked as #{status} (ID: #{id})"
   end
 
   def delete(id)

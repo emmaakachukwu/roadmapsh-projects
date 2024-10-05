@@ -28,4 +28,8 @@ when 'update'
   task.update(args.first, task: args[1], **options)
 when 'delete'
   task.delete(args.first)
+when 'mark-in-progress'
+  task.update(args.first, status: 'in-progress')
+when 'mark-done'
+  task.update(args.first, status: 'done')
 end
