@@ -12,8 +12,9 @@ class Task
 
   def add(task, description: nil, status: :todo)
     time = Time.now
+    id = generate_id
     object = {
-      id: generate_id,
+      id:,
       task:,
       description:,
       status:,
@@ -22,6 +23,8 @@ class Task
     }
     tasks << object
     update_file
+
+    puts "Task added successfully (ID: #{id})"
   end
 
   private
