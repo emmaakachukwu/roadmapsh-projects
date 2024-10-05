@@ -5,6 +5,15 @@ require 'json'
 class Task
   JSON_FILE = "#{__dir__}/../.tasks.json"
 
+  HEADERS = {
+    id: 'ID',
+    task: 'Task',
+    description: 'Description',
+    status: 'Status',
+    createdAt: 'Created At',
+    updatedAt: 'Updated At'
+  }
+
   def initialize
     setup_datastore
     fetch_tasks
@@ -48,6 +57,10 @@ class Task
     update_file
 
     puts "Task deleted successfully (ID: #{id})"
+  end
+
+  def list
+    tasks.select { |t| t.any? }
   end
 
   private

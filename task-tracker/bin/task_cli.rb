@@ -3,6 +3,7 @@
 
 require 'optparse'
 require_relative '../lib/task'
+require_relative '../lib/table'
 
 options = {}
 OptionParser.new do |opts|
@@ -32,4 +33,6 @@ when 'mark-in-progress'
   task.update(args.first, status: 'in-progress')
 when 'mark-done'
   task.update(args.first, status: 'done')
+when 'list'
+  Table.display(Task::HEADERS, task.list)
 end
