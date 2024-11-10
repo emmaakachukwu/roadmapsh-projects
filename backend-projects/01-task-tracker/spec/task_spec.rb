@@ -8,7 +8,7 @@ RSpec.describe Task do
     @json_file = "#{__dir__}/../.tasks.json"
   end
 
-  after(:all) do
+  after(:each) do
     File.delete(@json_file) if File.exist?(@json_file)
   end
 
@@ -51,6 +51,44 @@ RSpec.describe Task do
   end
 
   describe '#update' do
-    //
+    before do
+      subject.add(
+        'Say hello to the world',
+        description: "We're saying hello world"
+      )
+    end
+
+    it 'updates task' do
+      subject.update(
+        1,
+        task: 'Say hello to roadmap',
+        description: "We're saying hello roadmap"
+      )
+      expect(
+        subject.send(:find_task, 1).slice(:id, :task, :description, :status)).to eq(
+        id: 1,
+        task: 'Say hello to roadmap',
+        description: "We're saying hello roadmap",
+        status: :todo
+      )
+    end
+  end
+
+  describe '#delete' do
+    before do
+      subject.add(
+        'Say hello to the world',
+        description: "We're saying hello world"
+      )
+    end
+
+    it 'deletes task' do
+      subject.delete(1)
+      expect(subject.send(:tasks)).to eq([{}])
+    end
+
+    it 'raises correct error on invalid task ID' do
+      expect { subject.delete(2) }.to raise_error(RuntimeError, 'Invalid task ID: 2')
+    end
   end
 end
