@@ -60,3 +60,8 @@ ID                            Task                          Description         
 ```
 ./bin/task_cli.rb list [todo,in-progress,done]
 ```
+
+### Tests
+```
+rspec
+```
