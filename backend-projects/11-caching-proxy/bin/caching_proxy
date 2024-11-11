@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require_relative '../lib/server'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Usage: caching_proxy [<args>]'
+
+  opts.on('-p PORT', '--port', Integer, 'Port number to start server on') do |port|
+    options[:port] = port
+  end
+
+  opts.on('-o ORIGIN', '--origin', String, 'Server URL to forward requests to') do |origin|
+    options[:origin] = origin
+  end
+
+  opts.on('--clear-cache', 'Clear all cached data') do |clear_cache|
+    options[:clear_cache] = clear_cache
+  end
+end.parse!
+
+# validations
+
+server = Server.instance
+server.start(options[:port], options[:origin])
