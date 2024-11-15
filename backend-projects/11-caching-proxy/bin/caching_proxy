@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require_relative '../lib/server'
+require_relative '../lib/proxy_server'
 
 options = {}
 OptionParser.new do |opts|
@@ -23,5 +23,5 @@ end.parse!
 
 # validations
 
-server = Server.instance
-server.start(options[:port], options[:origin])
+server = ProxyServer.instance(options[:port], options[:origin])
+server.start
