@@ -22,14 +22,13 @@ class Client
     req = Net::HTTP::Get.new(uri)
     req.initialize_http_header(headers)
 
-    res = Net::HTTP.start(
+    Net::HTTP.start(
       uri.hostname,
       uri.port,
       use_ssl: uri.scheme == 'https'
     ) do |http|
       http.request(req)
     end
-
-    res.body
   end
+
 end
