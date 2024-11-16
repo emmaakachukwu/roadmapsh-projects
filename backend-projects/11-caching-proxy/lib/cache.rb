@@ -43,6 +43,10 @@ class Cache
     Time.now > Time.parse(expires_at)
   end
 
+  def clear
+    FileUtils.rm_rf("#{STORAGE_PATH}/.", secure: true)
+  end
+
   private
 
   def cache_path(key)

@@ -3,6 +3,7 @@
 
 require 'optparse'
 require_relative '../lib/proxy_server'
+require_relative '../lib/cache'
 
 options = {}
 OptionParser.new do |opts|
@@ -23,5 +24,13 @@ end.parse!
 
 # validations
 
-server = ProxyServer.instance(options[:port], options[:origin])
-server.start
+if options[:clear_cache]
+  Cache.new.clear
+  puts "Cache cleared"
+end
+
+port, origin = options.values_at(:port, :origin)
+if port && origin
+  server = ProxyServer.instance(port, origin)
+  server.start
+end
