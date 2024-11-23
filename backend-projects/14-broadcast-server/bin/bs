@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/bs'
+
+case ARGV.first
+when 'start'
+  BS::Server.start
+when 'connect'
+  BS::Client.connect
+end
