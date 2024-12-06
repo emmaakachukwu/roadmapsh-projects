@@ -5,7 +5,7 @@ require_relative '../lib/bs'
 
 case ARGV.first
 when 'start'
-  BS::Server.start
+  BS::Server.new.start
 when 'connect'
-  BS::Client.connect
+  BS::Client.new.connect
 end
