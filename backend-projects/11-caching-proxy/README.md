@@ -8,7 +8,7 @@ CLI app solution for the [caching-proxy](https://roadmap.sh/projects/caching-ser
 git clone https://github.com/emmaakachukwu/roadmapsh-projects.git
 ```
 
-**cd into the task tracker directory**
+**cd into the caching proxy directory**
 ```
 cd backend-projects/11-caching-proxy
 ```
